@@ -35,12 +35,12 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 
-	helmv2beta1 "github.com/fluxcd/helm-controller/api/v2beta1"
+	helmv2beta1 "github.com/fluxcd/helm-controller/api/v2beta2"
 	automationv1beta1 "github.com/fluxcd/image-automation-controller/api/v1beta1"
 	reflectorv1beta2 "github.com/fluxcd/image-reflector-controller/api/v1beta2"
 	kustomizev1 "github.com/fluxcd/kustomize-controller/api/v1"
 	notiv1 "github.com/fluxcd/notification-controller/api/v1"
-	notiv1beta2 "github.com/fluxcd/notification-controller/api/v1beta2"
+	notiv1beta3 "github.com/fluxcd/notification-controller/api/v1beta3"
 	"github.com/fluxcd/pkg/apis/meta"
 	"github.com/fluxcd/pkg/git"
 	"github.com/fluxcd/pkg/git/gogit"
@@ -96,7 +96,7 @@ func getKubernetesCredentials(kubeconfig, aksHost, aksCert, aksKey, aksCa string
 	if err != nil {
 		return "", nil, err
 	}
-	err = notiv1beta2.AddToScheme(scheme.Scheme)
+	err = notiv1beta3.AddToScheme(scheme.Scheme)
 	if err != nil {
 		return "", nil, err
 	}

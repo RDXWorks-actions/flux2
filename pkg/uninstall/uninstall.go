@@ -28,16 +28,17 @@ import (
 	"k8s.io/apimachinery/pkg/util/errors"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	"github.com/fluxcd/flux2/v2/pkg/log"
-	"github.com/fluxcd/flux2/v2/pkg/manifestgen"
-	helmv2 "github.com/fluxcd/helm-controller/api/v2beta1"
+	helmv2 "github.com/fluxcd/helm-controller/api/v2beta2"
 	autov1 "github.com/fluxcd/image-automation-controller/api/v1beta1"
 	imagev1 "github.com/fluxcd/image-reflector-controller/api/v1beta2"
 	kustomizev1 "github.com/fluxcd/kustomize-controller/api/v1"
 	notificationv1 "github.com/fluxcd/notification-controller/api/v1"
-	notificationv1b2 "github.com/fluxcd/notification-controller/api/v1beta2"
+	notificationv1b3 "github.com/fluxcd/notification-controller/api/v1beta3"
 	sourcev1 "github.com/fluxcd/source-controller/api/v1"
 	sourcev1b2 "github.com/fluxcd/source-controller/api/v1beta2"
+
+	"github.com/fluxcd/flux2/v2/pkg/log"
+	"github.com/fluxcd/flux2/v2/pkg/manifestgen"
 )
 
 // Components removes all Kubernetes components that are part of Flux excluding the CRDs and namespace.
@@ -243,7 +244,7 @@ func Finalizers(ctx context.Context, logger log.Logger, kubeClient client.Client
 		}
 	}
 	{
-		var list notificationv1b2.AlertList
+		var list notificationv1b3.AlertList
 		if err := kubeClient.List(ctx, &list, client.InNamespace("")); err == nil {
 			for i := range list.Items {
 				r := list.Items[i]
@@ -258,7 +259,7 @@ func Finalizers(ctx context.Context, logger log.Logger, kubeClient client.Client
 		}
 	}
 	{
-		var list notificationv1b2.ProviderList
+		var list notificationv1b3.ProviderList
 		if err := kubeClient.List(ctx, &list, client.InNamespace("")); err == nil {
 			for i := range list.Items {
 				r := list.Items[i]
